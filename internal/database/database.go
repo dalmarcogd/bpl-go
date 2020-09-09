@@ -29,7 +29,9 @@ func (s *ServiceImpl) WithDsn(dsn string) *ServiceImpl {
 func (s *ServiceImpl) Init(ctx context.Context) error {
 	s.ctx = ctx
 	s.dsn = s.ServiceManager().Environment().DatabaseDsn()
-	c, err := gorm.Open(postgres.Open(s.dsn), &gorm.Config{})
+	c, err := gorm.Open(postgres.Open(s.dsn), &gorm.Config{
+		PrepareStmt: true,
+	})
 	if err != nil {
 		return err
 	}

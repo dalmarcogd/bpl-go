@@ -88,7 +88,14 @@ type (
 )
 
 func New() *ServiceManagerImpl {
-	return &ServiceManagerImpl{}
+	return &ServiceManagerImpl{
+		database:    NewNoopDatabase(),
+		cache:       NewNoopCache(),
+		log:         NewNoopLogger(),
+		httpServer:  NewNoopHttpServer(),
+		handlers:    NewNoopHandlers(),
+		environment: NewNoopEnvironment(),
+	}
 }
 
 func (s *ServiceManagerImpl) Init() error {

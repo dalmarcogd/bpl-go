@@ -20,28 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9958622-b1d3-4d6f-93e3-29572b6d56a5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/cmd/migration/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/cache/cache_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/environment/environment.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/environment/environment_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/errors/errors.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/errors/errors_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/grpcserver/grpcserver.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/grpcserver/grpcserver_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/handlers/handlers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/handlers/handlers_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/httpserver/httpserver_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/logger/logger_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/models/user.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/services/noop.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/api/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/api/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/cache/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/cache/cache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/migration/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/migration/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/database/database.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/database/database.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/httpserver/httpserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/httpserver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/logger/logger.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/logger/logger.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/user.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/internal/services/services.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/services/services.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +83,7 @@
       <recent name="$PROJECT_DIR$/internal/httpserver" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Build.go build github.com/dalmarcogd/bpl-go/cmd/migration">
     <configuration name="go build github.com/dalmarcogd/bpl-go/cmd/api" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="bpl-go" />
       <working_directory value="$PROJECT_DIR$" />
@@ -121,6 +104,30 @@
       <directory value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="go build github.com/dalmarcogd/bpl-go/cmd/migration" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+      <module name="bpl-go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <EXTENSION ID="net.ashald.envfile">
+        <option name="IS_ENABLED" value="false" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
+        </ENTRIES>
+      </EXTENSION>
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$" />
+      <package value="github.com/dalmarcogd/bpl-go/cmd/migration" />
+      <directory value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.go build github.com/dalmarcogd/bpl-go/cmd/api" />
+      <item itemvalue="Go Build.go build github.com/dalmarcogd/bpl-go/cmd/migration" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -156,10 +163,10 @@
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state x="755" y="464" width="410" height="141" key="#GOROOT/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599589329825" />
-    <state x="418" y="189" width="1084" height="710" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599599294625">
+    <state x="418" y="189" width="1084" height="760" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1599675143623">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
-    <state x="418" y="189" width="1084" height="710" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599599294625" />
+    <state x="418" y="189" width="1084" height="760" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599675143623" />
     <state x="768" y="250" width="374" height="569" key="#com.intellij.ide.util.MemberChooser" timestamp="1599591202880">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
@@ -172,54 +179,54 @@
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state x="743" y="293" width="424" height="491" key="FileChooserDialogImpl/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599589326803" />
-    <state width="1874" height="327" key="GridCell.Tab.0.bottom" timestamp="1599673949300">
+    <state width="1874" height="327" key="GridCell.Tab.0.bottom" timestamp="1599676504689">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.0.bottom/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656677321" />
-    <state width="1874" height="327" key="GridCell.Tab.0.bottom/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599673949300" />
-    <state width="1874" height="327" key="GridCell.Tab.0.center" timestamp="1599673949300">
+    <state width="1874" height="327" key="GridCell.Tab.0.bottom/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599676504689" />
+    <state width="1874" height="327" key="GridCell.Tab.0.center" timestamp="1599676504688">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.0.center/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656677321" />
-    <state width="1874" height="327" key="GridCell.Tab.0.center/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599673949300" />
-    <state width="1874" height="327" key="GridCell.Tab.0.left" timestamp="1599673949300">
+    <state width="1874" height="327" key="GridCell.Tab.0.center/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599676504688" />
+    <state width="1874" height="327" key="GridCell.Tab.0.left" timestamp="1599676504688">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.0.left/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656677321" />
-    <state width="1874" height="327" key="GridCell.Tab.0.left/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599673949300" />
-    <state width="1874" height="327" key="GridCell.Tab.0.right" timestamp="1599673949300">
+    <state width="1874" height="327" key="GridCell.Tab.0.left/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599676504688" />
+    <state width="1874" height="327" key="GridCell.Tab.0.right" timestamp="1599676504688">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.0.right/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656677321" />
-    <state width="1874" height="327" key="GridCell.Tab.0.right/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599673949300" />
-    <state width="1874" height="327" key="GridCell.Tab.1.bottom" timestamp="1599673944010">
+    <state width="1874" height="327" key="GridCell.Tab.0.right/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599676504688" />
+    <state width="1874" height="327" key="GridCell.Tab.1.bottom" timestamp="1599676504689">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.1.bottom/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656671986" />
-    <state width="1874" height="327" key="GridCell.Tab.1.bottom/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599673944010" />
-    <state width="1874" height="327" key="GridCell.Tab.1.center" timestamp="1599673944010">
+    <state width="1874" height="327" key="GridCell.Tab.1.bottom/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599676504689" />
+    <state width="1874" height="327" key="GridCell.Tab.1.center" timestamp="1599676504689">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.1.center/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656671986" />
-    <state width="1874" height="327" key="GridCell.Tab.1.center/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599673944010" />
-    <state width="1874" height="327" key="GridCell.Tab.1.left" timestamp="1599673944010">
+    <state width="1874" height="327" key="GridCell.Tab.1.center/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599676504689" />
+    <state width="1874" height="327" key="GridCell.Tab.1.left" timestamp="1599676504689">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.1.left/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656671986" />
-    <state width="1874" height="327" key="GridCell.Tab.1.left/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599673944010" />
-    <state width="1874" height="327" key="GridCell.Tab.1.right" timestamp="1599673944010">
+    <state width="1874" height="327" key="GridCell.Tab.1.left/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599676504689" />
+    <state width="1874" height="327" key="GridCell.Tab.1.right" timestamp="1599676504689">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.1.right/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656671986" />
-    <state width="1874" height="327" key="GridCell.Tab.1.right/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599673944010" />
+    <state width="1874" height="327" key="GridCell.Tab.1.right/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599676504689" />
     <state x="741" y="446" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599597198197">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state x="741" y="446" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599597198197" />
-    <state x="651" y="140" width="618" height="783" key="find.popup" timestamp="1599661644919">
+    <state x="651" y="140" width="618" height="783" key="find.popup" timestamp="1599674794556">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
-    <state x="651" y="140" width="618" height="783" key="find.popup/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599661644919" />
+    <state x="651" y="140" width="618" height="783" key="find.popup/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599674794556" />
     <state x="792" y="291" width="325" height="487" key="refactoring.ChangeSignatureDialog" timestamp="1599597833021">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
