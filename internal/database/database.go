@@ -21,13 +21,14 @@ func New() *ServiceImpl {
 	return &ServiceImpl{}
 }
 
-func (s ServiceImpl) WithDsn(dsn string) ServiceImpl {
+func (s *ServiceImpl) WithDsn(dsn string) *ServiceImpl {
 	s.dsn = dsn
 	return s
 }
 
-func (s ServiceImpl) Init(ctx context.Context) error {
+func (s *ServiceImpl) Init(ctx context.Context) error {
 	s.ctx = ctx
+	s.dsn = s.ServiceManager().Environment().DatabaseDsn()
 	c, err := gorm.Open(postgres.Open(s.dsn), &gorm.Config{})
 	if err != nil {
 		return err
@@ -37,14 +38,16 @@ func (s ServiceImpl) Init(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
+	if err := db.PingContext(s.ctx); err != nil {
+		return err
+	}
 	db.SetMaxIdleConns(1)
 	db.SetMaxOpenConns(10)
 	db.SetConnMaxLifetime(time.Hour)
-	s.ServiceManager().Logger()
 	return nil
 }
 
-func (s ServiceImpl) Close() error {
+func (s *ServiceImpl) Close() error {
 	db, err := s.client.DB()
 	if err != nil {
 		return err
@@ -52,11 +55,15 @@ func (s ServiceImpl) Close() error {
 	return db.Close()
 }
 
-func (s ServiceImpl) WithServiceManager(c services.ServiceManager) services.Database {
+func (s *ServiceImpl) WithServiceManager(c services.ServiceManager) services.Database {
 	s.serviceManager = c
 	return s
 }
 
-func (s ServiceImpl) ServiceManager() services.ServiceManager {
+func (s *ServiceImpl) ServiceManager() services.ServiceManager {
 	return s.serviceManager
+}
+
+func (s *ServiceImpl) DB(ctx context.Context) *gorm.DB {
+	return s.client.WithContext(ctx)
 }

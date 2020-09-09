@@ -3,6 +3,8 @@ package services
 import (
 	"context"
 	"fmt"
+	"github.com/dalmarcogd/bpl-go/internal/models"
+	"gorm.io/gorm"
 )
 
 type (
@@ -15,6 +17,7 @@ type (
 	Database interface {
 		Generic
 		WithServiceManager(c ServiceManager) Database
+		DB(ctx context.Context) *gorm.DB
 	}
 	Cache interface {
 		Generic
@@ -33,6 +36,25 @@ type (
 		WithServiceManager(c ServiceManager) HttpServer
 		Run() error
 	}
+	Environment interface {
+		Generic
+		WithServiceManager(c ServiceManager) Environment
+		Environment() string
+		Service() string
+		Version() string
+		DebugPprof() bool
+		DatabaseDsn() string
+		CacheAddress() string
+	}
+	Handlers interface {
+		Generic
+		WithServiceManager(c ServiceManager) Handlers
+		CreateUser(ctx context.Context, u *models.User) error
+		UpdateUser(ctx context.Context, u *models.User) error
+		GetUser(ctx context.Context, u *models.User) error
+		GetUsers(ctx context.Context, u *[]models.User) error
+		DeleteUser(ctx context.Context, u *models.User) error
+	}
 
 	ServiceManager interface {
 		WithDatabase(d Database) ServiceManager
@@ -43,6 +65,10 @@ type (
 		Logger() Logger
 		WithHttpServer(d HttpServer) ServiceManager
 		HttpServer() HttpServer
+		WithHandlers(d Handlers) ServiceManager
+		Handlers() Handlers
+		WithEnvironment(d Environment) ServiceManager
+		Environment() Environment
 
 		Context() context.Context
 		Init() error
@@ -50,12 +76,14 @@ type (
 	}
 
 	ServiceManagerImpl struct {
-		ctx        context.Context
-		cancel     context.CancelFunc
-		database   Database
-		cache      Cache
-		log        Logger
-		httpServer HttpServer
+		ctx         context.Context
+		cancel      context.CancelFunc
+		database    Database
+		cache       Cache
+		log         Logger
+		httpServer  HttpServer
+		handlers    Handlers
+		environment Environment
 	}
 )
 
@@ -65,18 +93,22 @@ func New() *ServiceManagerImpl {
 
 func (s *ServiceManagerImpl) Init() error {
 	s.ctx, s.cancel = context.WithCancel(context.Background())
-	if err := s.log.Init(s.ctx); err != nil {
+	if err := s.Logger().Init(s.ctx); err != nil {
 		return err
 	}
-	if err := s.httpServer.Init(s.ctx); err != nil {
+	if err := s.Environment().Init(s.ctx); err != nil {
 		return err
 	}
-	if err := s.cache.Init(s.ctx); err != nil {
+	if err := s.HttpServer().Init(s.ctx); err != nil {
 		return err
 	}
-	if err := s.database.Init(s.ctx); err != nil {
+	if err := s.Cache().Init(s.ctx); err != nil {
 		return err
 	}
+	if err := s.Database().Init(s.ctx); err != nil {
+		return err
+	}
+	s.Logger().Info(s.ctx, "All services initialized")
 	return nil
 }
 
@@ -86,6 +118,9 @@ func (s *ServiceManagerImpl) Close() error {
 		err = errC
 	}
 	if errC := s.database.Close(); errC != nil {
+		err = fmt.Errorf("%v - %v", err, errC)
+	}
+	if errC := s.httpServer.Close(); errC != nil {
 		err = fmt.Errorf("%v - %v", err, errC)
 	}
 	if errC := s.log.Close(); errC != nil {
@@ -133,4 +168,21 @@ func (s *ServiceManagerImpl) WithHttpServer(d HttpServer) ServiceManager {
 
 func (s *ServiceManagerImpl) HttpServer() HttpServer {
 	return s.httpServer
+}
+
+func (s *ServiceManagerImpl) WithHandlers(d Handlers) ServiceManager {
+	s.handlers = d.WithServiceManager(s)
+	return s
+}
+
+func (s *ServiceManagerImpl) Handlers() Handlers {
+	return s.handlers
+}
+func (s *ServiceManagerImpl) WithEnvironment(d Environment) ServiceManager {
+	s.environment = d.WithServiceManager(s)
+	return s
+}
+
+func (s *ServiceManagerImpl) Environment() Environment {
+	return s.environment
 }

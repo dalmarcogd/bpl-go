@@ -3,8 +3,10 @@ module github.com/dalmarcogd/bpl-go
 go 1.15
 
 require (
+	github.com/crgimenes/goconfig v1.2.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/go-redis/redis/v8 v8.0.0-beta.10
+	github.com/google/uuid v1.1.2
 	github.com/jackc/pgproto3/v2 v2.0.4 // indirect
 	github.com/labstack/echo v3.3.10+incompatible // indirect
 	github.com/labstack/echo/v4 v4.1.17

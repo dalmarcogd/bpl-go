@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/dalmarcogd/bpl-go/internal/services"
 	"github.com/sirupsen/logrus"
+	"os"
 	"runtime"
 )
 
@@ -30,6 +31,14 @@ func (s *ServiceImpl) WithDefaultFields(f DefaultFields) *ServiceImpl {
 func (s *ServiceImpl) Init(ctx context.Context) error {
 	s.ctx = ctx
 	s.logger = logrus.New()
+	s.logger.SetFormatter(&logrus.JSONFormatter{
+		TimestampFormat: "2006-01-02 15:04:05.000",
+		FieldMap: logrus.FieldMap{
+			logrus.FieldKeyTime: "time",
+			logrus.FieldKeyMsg:  "text",
+		},
+	})
+	s.logger.SetOutput(os.Stdout)
 	return nil
 }
 
