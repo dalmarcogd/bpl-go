@@ -20,7 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b9958622-b1d3-4d6f-93e3-29572b6d56a5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/internal/httpserver/routes.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/httpserver/routes_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/httpserver/httpserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/httpserver.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +63,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/vendor/gorm.io/driver/postgres/postgres.go" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/internal/httpserver" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -70,13 +73,13 @@
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/pkg" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/internal/httpserver" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/internal" />
-      <recent name="$PROJECT_DIR$/internal/httpserver" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/pkg" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build github.com/dalmarcogd/bpl-go/cmd/api">
