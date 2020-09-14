@@ -29,6 +29,7 @@ func (s *ServiceImpl) Init(ctx context.Context) error {
 	s.ctx = ctx
 	s.echo = echo.New()
 	s.echo.Logger.SetOutput(ioutil.Discard)
+	s.echo.Use(LogMiddleware(s.ServiceManager().Logger()))
 	s.RegisterRoutes()
 	return nil
 }
