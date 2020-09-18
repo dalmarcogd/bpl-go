@@ -12,7 +12,7 @@ func LogMiddleware(log services.Logger) func(h echo.HandlerFunc) echo.HandlerFun
 			ctx := context.Request().Context()
 			log.Info(ctx, fmt.Sprintf("Request %v:%v", context.Request().Method, context.Path()))
 			err := h(context)
-			log.Info(ctx, fmt.Sprintf("Response %v:%v:%b", context.Request().Method, context.Path(), context.Response().Status))
+			log.Info(ctx, fmt.Sprintf("Response %v:%v:%v", context.Request().Method, context.Path(), context.Response().Status))
 			return err
 		}
 	}
