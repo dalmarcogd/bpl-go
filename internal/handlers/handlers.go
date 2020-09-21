@@ -37,11 +37,7 @@ func (s *ServiceImpl) ServiceManager() services.ServiceManager {
 }
 
 func (s *ServiceImpl) CreateUser(ctx context.Context, user *models.User) error {
-	newUUID, err := uuid.NewUUID()
-	if err != nil {
-		return err
-	}
-	user.Id = newUUID.String()
+	user.Id = uuid.New().String()
 	result := s.ServiceManager().Database().DB(ctx).Create(&user)
 	if result.Error != nil {
 		return result.Error
@@ -78,5 +74,6 @@ func (s *ServiceImpl) DeleteUser(ctx context.Context, u *models.User) error {
 	if result.Error != nil {
 		return result.Error
 	}
+
 	return nil
 }

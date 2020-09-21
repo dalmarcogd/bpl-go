@@ -7,10 +7,10 @@ import (
 	"net/http"
 )
 
-func (s *ServiceImpl) routeCreateUser(c echo.Context) error {
+func (s *ServiceImpl) handleCreateUser(c echo.Context) error {
 	uReq := new(models.UserRequest)
-	if err := c.Bind(&uReq); err != nil {
-		return err
+	if err := c.Bind(uReq); err != nil {
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, err.Error()).SetInternal(err)
 	}
 	user := models.User{
 		Name:  uReq.Name,
@@ -18,7 +18,7 @@ func (s *ServiceImpl) routeCreateUser(c echo.Context) error {
 	}
 	err := s.ServiceManager().Handlers().CreateUser(c.Request().Context(), &user)
 	if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
 
 	return c.JSON(http.StatusCreated, &models.UserResponse{
@@ -28,23 +28,23 @@ func (s *ServiceImpl) routeCreateUser(c echo.Context) error {
 	})
 }
 
-func (s *ServiceImpl) routeUpdateUser(c echo.Context) error {
-	uReq := new(models.UserRequest)
+func (s *ServiceImpl) handleUpdateUser(c echo.Context) error {
 	userId := c.Param("userId")
-	if userId != "" {
-		return errors.UserIdRequired
+	if userId == "" {
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, errors.UserIdRequired.Error()).SetInternal(errors.UserIdRequired)
 	}
-	if err := c.Bind(&uReq); err != nil {
-		return err
+	uReq := new(models.UserRequest)
+	if err := c.Bind(uReq); err != nil {
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, err.Error()).SetInternal(err)
 	}
 	user := models.User{
 		Id:    userId,
 		Name:  uReq.Name,
 		Email: uReq.Email,
 	}
-	err := s.ServiceManager().Handlers().CreateUser(c.Request().Context(), &user)
+	err := s.ServiceManager().Handlers().UpdateUser(c.Request().Context(), &user)
 	if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
 
 	return c.JSON(http.StatusOK, &models.UserResponse{
@@ -54,18 +54,17 @@ func (s *ServiceImpl) routeUpdateUser(c echo.Context) error {
 	})
 }
 
-func (s *ServiceImpl) routeGetUserById(c echo.Context) error {
+func (s *ServiceImpl) handleGetUserById(c echo.Context) error {
 	userId := c.Param("userId")
-	if userId != "" {
-		return errors.UserIdRequired
+	if userId == "" {
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, errors.UserIdRequired.Error()).SetInternal(errors.UserIdRequired)
 	}
 	user := models.User{
 		Id: userId,
 	}
-
 	err := s.ServiceManager().Handlers().GetUser(c.Request().Context(), &user)
 	if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
 
 	return c.JSON(http.StatusOK, &models.UserResponse{
@@ -75,11 +74,11 @@ func (s *ServiceImpl) routeGetUserById(c echo.Context) error {
 	})
 }
 
-func (s *ServiceImpl) routeGetUsers(c echo.Context) error {
+func (s *ServiceImpl) handleGetUsers(c echo.Context) error {
 	var users []models.User
 	err := s.ServiceManager().Handlers().GetUsers(c.Request().Context(), &users)
 	if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
 
 	uResponses := make([]*models.UserResponse, 0)
@@ -93,10 +92,10 @@ func (s *ServiceImpl) routeGetUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, &uResponses)
 }
 
-func (s *ServiceImpl) routeDeleteUser(c echo.Context) error {
+func (s *ServiceImpl) handleDeleteUser(c echo.Context) error {
 	userId := c.Param("userId")
-	if userId != "" {
-		return errors.UserIdRequired
+	if userId == "" {
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, errors.UserIdRequired.Error()).SetInternal(errors.UserIdRequired)
 	}
 	user := models.User{
 		Id: userId,
@@ -104,7 +103,7 @@ func (s *ServiceImpl) routeDeleteUser(c echo.Context) error {
 
 	err := s.ServiceManager().Handlers().DeleteUser(c.Request().Context(), &user)
 	if err != nil {
-		return err
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
 
 	return c.JSON(http.StatusOK, &models.UserResponse{

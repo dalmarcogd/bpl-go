@@ -52,11 +52,11 @@ func (s *ServiceImpl) ServiceManager() services.ServiceManager {
 
 func (s *ServiceImpl) RegisterRoutes() *ServiceImpl {
 	group := s.echo.Group("/v1")
-	group.POST("/users", s.routeCreateUser)
-	group.PATCH("/users/:userId", s.routeUpdateUser)
-	group.GET("/users/:userId", s.routeGetUserById)
-	group.GET("/users", s.routeGetUsers)
-	group.DELETE("/users/:userId", s.routeDeleteUser)
+	group.POST("/users", s.handleCreateUser)
+	group.PATCH("/users/:userId", s.handleUpdateUser)
+	group.GET("/users/:userId", s.handleGetUserById)
+	group.GET("/users", s.handleGetUsers)
+	group.DELETE("/users/:userId", s.handleDeleteUser)
 	return s
 }
 
