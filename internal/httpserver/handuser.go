@@ -38,8 +38,8 @@ func (s *ServiceImpl) handleUpdateUser(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err.Error()).SetInternal(err)
 	}
 	user := models.User{
-		Id:    userId,
-		Name:  uReq.Name,
+		Id: userId,
+		Name: uReq.Name,
 		Email: uReq.Email,
 	}
 	err := s.ServiceManager().Handlers().UpdateUser(c.Request().Context(), &user)

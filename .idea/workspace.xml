@@ -21,12 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b9958622-b1d3-4d6f-93e3-29572b6d56a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/handlers/handlers.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/handlers/handlers.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/httpserver/httpserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/httpserver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/httpserver/logmiddleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/logmiddleware.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/httpserver/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/handuser.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/httpserver/routes_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/handuser_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/httpserver/handuser.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/handuser.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,53 +182,54 @@
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state x="743" y="293" width="424" height="491" key="FileChooserDialogImpl/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599589326803" />
-    <state width="1874" height="327" key="GridCell.Tab.0.bottom" timestamp="1600702834063">
+    <state width="1874" height="327" key="GridCell.Tab.0.bottom" timestamp="1600703900059">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.0.bottom/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656677321" />
-    <state width="1874" height="327" key="GridCell.Tab.0.bottom/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600702834063" />
-    <state width="1874" height="327" key="GridCell.Tab.0.center" timestamp="1600702834063">
+    <state width="1874" height="327" key="GridCell.Tab.0.bottom/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600703900059" />
+    <state width="1874" height="327" key="GridCell.Tab.0.center" timestamp="1600703900059">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.0.center/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656677321" />
-    <state width="1874" height="327" key="GridCell.Tab.0.center/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600702834063" />
-    <state width="1874" height="327" key="GridCell.Tab.0.left" timestamp="1600702834063">
+    <state width="1874" height="327" key="GridCell.Tab.0.center/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600703900059" />
+    <state width="1874" height="327" key="GridCell.Tab.0.left" timestamp="1600703900059">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.0.left/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656677321" />
-    <state width="1874" height="327" key="GridCell.Tab.0.left/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600702834063" />
-    <state width="1874" height="327" key="GridCell.Tab.0.right" timestamp="1600702834063">
+    <state width="1874" height="327" key="GridCell.Tab.0.left/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600703900059" />
+    <state width="1874" height="327" key="GridCell.Tab.0.right" timestamp="1600703900059">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.0.right/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656677321" />
-    <state width="1874" height="327" key="GridCell.Tab.0.right/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600702834063" />
-    <state width="1874" height="327" key="GridCell.Tab.1.bottom" timestamp="1600702834019">
+    <state width="1874" height="327" key="GridCell.Tab.0.right/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600703900059" />
+    <state width="1874" height="327" key="GridCell.Tab.1.bottom" timestamp="1600703900009">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.1.bottom/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656671986" />
-    <state width="1874" height="327" key="GridCell.Tab.1.bottom/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600702834019" />
-    <state width="1874" height="327" key="GridCell.Tab.1.center" timestamp="1600702834019">
+    <state width="1874" height="327" key="GridCell.Tab.1.bottom/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600703900009" />
+    <state width="1874" height="327" key="GridCell.Tab.1.center" timestamp="1600703900009">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.1.center/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656671986" />
-    <state width="1874" height="327" key="GridCell.Tab.1.center/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600702834019" />
-    <state width="1874" height="327" key="GridCell.Tab.1.left" timestamp="1600702834019">
+    <state width="1874" height="327" key="GridCell.Tab.1.center/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600703900009" />
+    <state width="1874" height="327" key="GridCell.Tab.1.left" timestamp="1600703900009">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.1.left/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656671986" />
-    <state width="1874" height="327" key="GridCell.Tab.1.left/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600702834019" />
-    <state width="1874" height="327" key="GridCell.Tab.1.right" timestamp="1600702834019">
+    <state width="1874" height="327" key="GridCell.Tab.1.left/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600703900009" />
+    <state width="1874" height="327" key="GridCell.Tab.1.right" timestamp="1600703900009">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state width="1874" height="327" key="GridCell.Tab.1.right/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1599656671986" />
-    <state width="1874" height="327" key="GridCell.Tab.1.right/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600702834019" />
+    <state width="1874" height="327" key="GridCell.Tab.1.right/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600703900009" />
     <state x="741" y="446" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1599597198197">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state x="741" y="446" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599597198197" />
-    <state x="651" y="140" width="618" height="783" key="find.popup" timestamp="1600448537971">
-      <screen x="0" y="21" width="1920" height="1059" />
+    <state x="651" y="136" width="618" height="755" key="find.popup" timestamp="1600712935888">
+      <screen x="0" y="21" width="1920" height="1021" />
     </state>
+    <state x="651" y="136" width="618" height="755" key="find.popup/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1600712935888" />
     <state x="651" y="140" width="618" height="783" key="find.popup/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600448537971" />
     <state x="792" y="291" width="325" height="487" key="refactoring.ChangeSignatureDialog" timestamp="1599597833021">
       <screen x="0" y="21" width="1920" height="1059" />
@@ -260,11 +257,6 @@
           <url>file:///usr/local/go/src/os/signal/signal.go</url>
           <line>231</line>
           <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/internal/httpserver/handuser.go</url>
-          <line>36</line>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
