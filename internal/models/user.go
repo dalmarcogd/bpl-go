@@ -25,3 +25,4 @@ type (
 		DeletedAt gorm.DeletedAt `gorm:"index"`
 	}
 )
+

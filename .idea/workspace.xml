@@ -21,8 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b9958622-b1d3-4d6f-93e3-29572b6d56a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/httpserver/handuser.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/userhand.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/httpserver/handuser_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/httpserver/userhand_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Insomnia.json" beforeDir="false" afterPath="$PROJECT_DIR$/Insomnia.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/models/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/models/user.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +37,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="/usr/local/go" />
+  <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -257,11 +258,12 @@
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
     <state x="741" y="446" width="428" height="177" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1599597198197" />
-    <state x="651" y="136" width="618" height="755" key="find.popup" timestamp="1600712935888">
-      <screen x="0" y="21" width="1920" height="1021" />
+    <state x="651" y="141" width="618" height="751" key="find.popup" timestamp="1601325518098">
+      <screen x="0" y="27" width="1920" height="1015" />
     </state>
     <state x="651" y="136" width="618" height="755" key="find.popup/0.21.1920.1021/0.1080.1920.1080@0.21.1920.1021" timestamp="1600712935888" />
     <state x="651" y="140" width="618" height="783" key="find.popup/0.21.1920.1059/0.1080.1920.1080@0.21.1920.1059" timestamp="1600448537971" />
+    <state x="651" y="141" width="618" height="751" key="find.popup/0.27.1920.1015/0.1080.1920.1080@0.27.1920.1015" timestamp="1601325518098" />
     <state x="792" y="291" width="325" height="487" key="refactoring.ChangeSignatureDialog" timestamp="1599597833021">
       <screen x="0" y="21" width="1920" height="1059" />
     </state>
