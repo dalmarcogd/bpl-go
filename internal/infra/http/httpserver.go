@@ -1,4 +1,4 @@
-package httpserver
+package http
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 
 type (
 	ServiceImpl struct {
-		serviceManager services.ServiceManager
+		serviceManager services.Sis
 		ctx            context.Context
 		echo           *echo.Echo
 		address        string
@@ -29,7 +29,7 @@ func (s *ServiceImpl) Init(ctx context.Context) error {
 	s.ctx = ctx
 	s.echo = echo.New()
 	s.echo.Logger.SetOutput(ioutil.Discard)
-	s.echo.Use(LogMiddleware(s.ServiceManager().Logger()))
+	s.echo.Use(LogMiddleware(s.Sis().Logger()))
 	s.RegisterRoutes()
 	return nil
 }
@@ -41,12 +41,12 @@ func (s *ServiceImpl) Close() error {
 	return s.echo.Close()
 }
 
-func (s *ServiceImpl) WithServiceManager(c services.ServiceManager) services.HttpServer {
+func (s *ServiceImpl) WithSis(c services.Sis) services.HttpServer {
 	s.serviceManager = c
 	return s
 }
 
-func (s *ServiceImpl) ServiceManager() services.ServiceManager {
+func (s *ServiceImpl) Sis() services.Sis {
 	return s.serviceManager
 }
 

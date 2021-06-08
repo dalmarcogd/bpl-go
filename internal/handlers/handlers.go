@@ -9,7 +9,7 @@ import (
 
 type (
 	ServiceImpl struct {
-		serviceManager services.ServiceManager
+		serviceManager services.Sis
 		ctx            context.Context
 	}
 )
@@ -27,18 +27,18 @@ func (s *ServiceImpl) Close() error {
 	return nil
 }
 
-func (s *ServiceImpl) WithServiceManager(c services.ServiceManager) services.Handlers {
+func (s *ServiceImpl) WithSis(c services.Sis) services.Handlers {
 	s.serviceManager = c
 	return s
 }
 
-func (s *ServiceImpl) ServiceManager() services.ServiceManager {
+func (s *ServiceImpl) Sis() services.Sis {
 	return s.serviceManager
 }
 
 func (s *ServiceImpl) CreateUser(ctx context.Context, user *models.User) error {
 	user.Id = uuid.New().String()
-	result := s.ServiceManager().Database().DB(ctx).Create(&user)
+	result := s.Sis().Database().DB(ctx).Create(&user)
 	if result.Error != nil {
 		return result.Error
 	}
@@ -46,7 +46,7 @@ func (s *ServiceImpl) CreateUser(ctx context.Context, user *models.User) error {
 }
 
 func (s *ServiceImpl) UpdateUser(ctx context.Context, u *models.User) error {
-	result := s.ServiceManager().Database().DB(ctx).Save(&u)
+	result := s.Sis().Database().DB(ctx).Save(&u)
 	if result.Error != nil {
 		return result.Error
 	}
@@ -54,7 +54,7 @@ func (s *ServiceImpl) UpdateUser(ctx context.Context, u *models.User) error {
 }
 
 func (s *ServiceImpl) GetUser(ctx context.Context, u *models.User) error {
-	result := s.ServiceManager().Database().DB(ctx).Find(&u)
+	result := s.Sis().Database().DB(ctx).Find(&u)
 	if result.Error != nil {
 		return result.Error
 	}
@@ -62,7 +62,7 @@ func (s *ServiceImpl) GetUser(ctx context.Context, u *models.User) error {
 }
 
 func (s *ServiceImpl) GetUsers(ctx context.Context, u *[]models.User) error {
-	result := s.ServiceManager().Database().DB(ctx).Find(&u)
+	result := s.Sis().Database().DB(ctx).Find(&u)
 	if result.Error != nil {
 		return result.Error
 	}
@@ -70,7 +70,7 @@ func (s *ServiceImpl) GetUsers(ctx context.Context, u *[]models.User) error {
 }
 
 func (s *ServiceImpl) DeleteUser(ctx context.Context, u *models.User) error {
-	result := s.ServiceManager().Database().DB(ctx).Delete(&u)
+	result := s.Sis().Database().DB(ctx).Delete(&u)
 	if result.Error != nil {
 		return result.Error
 	}

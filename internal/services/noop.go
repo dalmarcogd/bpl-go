@@ -2,24 +2,73 @@ package services
 
 import (
 	"context"
+	"database/sql"
 	"github.com/dalmarcogd/bpl-go/internal/models"
-	"gorm.io/gorm"
 )
 
 type (
-	NoopDatabase    struct{}
-	NoopHttpServer  struct{}
-	NoopCache       struct{}
-	NoopLogger      struct{}
-	NoopHandlers    struct{}
-	NoopEnvironment struct{}
+	NoopHealth   struct{}
+	NoopSis      struct{}
+	NoopDatabase struct {
+		NoopHealth
+	}
+	NoopValidator struct {
+		NoopHealth
+	}
+	NoopHttpServer struct {
+		NoopHealth
+	}
+	NoopCache struct {
+		NoopHealth
+	}
+	NoopLogger struct {
+		NoopHealth
+	}
+	NoopHandlers struct {
+		NoopHealth
+	}
+	NoopEnvironment struct {
+		NoopHealth
+	}
 )
+
+func (n *NoopHealth) Health(_ context.Context) error {
+	return nil
+}
+
+func NewNoopValidator() *NoopValidator {
+	return &NoopValidator{}
+}
+
+func (n *NoopValidator) Sis() Sis {
+	return nil
+}
+
+func (n *NoopValidator) Init(_ context.Context) error {
+	return nil
+}
+
+func (n *NoopValidator) Close() error {
+	return nil
+}
+
+func (n *NoopValidator) WithSis(_ Sis) Validator {
+	return n
+}
+
+func (n *NoopValidator) Validate(_ context.Context, _ interface{}) error {
+	return nil
+}
+
+func (n *NoopValidator) ValidateSlice(_ context.Context, _ interface{}) error {
+	return nil
+}
 
 func NewNoopDatabase() *NoopDatabase {
 	return &NoopDatabase{}
 }
 
-func (n *NoopDatabase) ServiceManager() ServiceManager {
+func (n *NoopDatabase) Sis() Sis {
 	return nil
 }
 
@@ -31,19 +80,71 @@ func (n *NoopDatabase) Close() error {
 	return nil
 }
 
-func (n *NoopDatabase) WithServiceManager(_ ServiceManager) Database {
+func (n *NoopDatabase) WithSis(_ Sis) Database {
 	return n
 }
 
-func (n *NoopDatabase) DB(_ context.Context) *gorm.DB {
+func (n *NoopDatabase) WithCardsAutomaticUpdaterDatabase() Database {
+	return n
+}
+
+func (n *NoopDatabase) WithCardsEmbossingsDatabase() Database {
+	return n
+}
+
+func (n *NoopDatabase) WithCoreDatabase() Database {
+	return n
+}
+
+func (n *NoopDatabase) WithMasterClient(_ *sql.DB) Database {
 	return nil
+}
+
+func (n *NoopDatabase) WithReplicaClient(_ *sql.DB) Database {
+	return nil
+}
+
+func (n *NoopDatabase) Ping(_ context.Context) error {
+	return nil
+}
+
+func (n *NoopDatabase) OpenTransactionMaster(ctx context.Context) (context.Context, error) {
+	return ctx, nil
+}
+
+func (n *NoopDatabase) TransactionMaster(context.Context, func(tx DatabaseTransaction) error) error {
+	return nil
+}
+
+func (n *NoopDatabase) OpenTransactionReplica(ctx context.Context) (context.Context, error) {
+	return ctx, nil
+}
+
+func (n *NoopDatabase) TransactionReplica(context.Context, func(tx DatabaseTransaction) error) error {
+	return nil
+}
+
+func (n *NoopDatabase) CloseTransaction(_ context.Context, err error) error {
+	return err
+}
+
+func (n *NoopDatabase) Insert(_ context.Context, _ string, _ ...interface{}) (sql.Result, error) {
+	return nil, nil
+}
+
+func (n *NoopDatabase) Update(_ context.Context, _ string, _ ...interface{}) (sql.Result, error) {
+	return nil, nil
+}
+
+func (n *NoopDatabase) Get(_ context.Context, _ string, _ ...interface{}) (*sql.Rows, error) {
+	return nil, nil
 }
 
 func NewNoopHttpServer() *NoopHttpServer {
 	return &NoopHttpServer{}
 }
 
-func (n *NoopHttpServer) ServiceManager() ServiceManager {
+func (n *NoopHttpServer) Sis() Sis {
 	return nil
 }
 
@@ -55,7 +156,7 @@ func (n *NoopHttpServer) Close() error {
 	return nil
 }
 
-func (n *NoopHttpServer) WithServiceManager(_ ServiceManager) HttpServer {
+func (n *NoopHttpServer) WithSis(_ Sis) HttpServer {
 	return n
 }
 
@@ -67,7 +168,7 @@ func NewNoopCache() *NoopCache {
 	return &NoopCache{}
 }
 
-func (n *NoopCache) ServiceManager() ServiceManager {
+func (n *NoopCache) Sis() Sis {
 	return nil
 }
 
@@ -79,7 +180,7 @@ func (n *NoopCache) Close() error {
 	return nil
 }
 
-func (n *NoopCache) WithServiceManager(_ ServiceManager) Cache {
+func (n *NoopCache) WithSis(_ Sis) Cache {
 	return n
 }
 
@@ -87,7 +188,7 @@ func NewNoopLogger() *NoopLogger {
 	return &NoopLogger{}
 }
 
-func (n *NoopLogger) ServiceManager() ServiceManager {
+func (n *NoopLogger) Sis() Sis {
 	return nil
 }
 
@@ -99,7 +200,7 @@ func (n *NoopLogger) Close() error {
 	return nil
 }
 
-func (n *NoopLogger) WithServiceManager(_ ServiceManager) Logger {
+func (n *NoopLogger) WithSis(_ Sis) Logger {
 	return n
 }
 
@@ -115,7 +216,7 @@ func NewNoopHandlers() *NoopHandlers {
 	return &NoopHandlers{}
 }
 
-func (n *NoopHandlers) ServiceManager() ServiceManager {
+func (n *NoopHandlers) Sis() Sis {
 	return nil
 }
 
@@ -127,7 +228,7 @@ func (n *NoopHandlers) Close() error {
 	return nil
 }
 
-func (n *NoopHandlers) WithServiceManager(_ ServiceManager) Handlers {
+func (n *NoopHandlers) WithSis(_ Sis) Handlers {
 	return n
 }
 
@@ -155,7 +256,7 @@ func NewNoopEnvironment() *NoopEnvironment {
 	return &NoopEnvironment{}
 }
 
-func (n *NoopEnvironment) ServiceManager() ServiceManager {
+func (n *NoopEnvironment) Sis() Sis {
 	return nil
 }
 
@@ -167,7 +268,7 @@ func (n *NoopEnvironment) Close() error {
 	return nil
 }
 
-func (n *NoopEnvironment) WithServiceManager(_ ServiceManager) Environment {
+func (n *NoopEnvironment) WithSis(_ Sis) Environment {
 	return n
 }
 

@@ -2,30 +2,48 @@ package services
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"github.com/dalmarcogd/bpl-go/internal/models"
-	"gorm.io/gorm"
 )
 
 type (
 	Generic interface {
-		ServiceManager() ServiceManager
+		Sis() Sis
 		Init(ctx context.Context) error
+		Health(ctx context.Context) error
 		Close() error
 	}
-
 	Database interface {
 		Generic
-		WithServiceManager(c ServiceManager) Database
-		DB(ctx context.Context) *gorm.DB
+		WithSis(c Sis) Database
+		WithCoreDatabase() Database
+		WithMasterClient(*sql.DB) Database
+		WithReplicaClient(*sql.DB) Database
+		OpenTransactionMaster(ctx context.Context) (context.Context, error)
+		TransactionMaster(ctx context.Context, f func(tx DatabaseTransaction) error) error
+		OpenTransactionReplica(ctx context.Context) (context.Context, error)
+		TransactionReplica(ctx context.Context, f func(tx DatabaseTransaction) error) error
+		CloseTransaction(ctx context.Context, err error) error
+	}
+	DatabaseTransaction interface {
+		Insert(query string, args ...interface{}) (sql.Result, error)
+		Update(query string, args ...interface{}) (sql.Result, error)
+		Get(query string, args ...interface{}) (*sql.Rows, error)
+	}
+	Validator interface {
+		Generic
+		WithSis(c Sis) Validator
+		Validate(ctx context.Context, obj interface{}) error
+		ValidateSlice(ctx context.Context, objs interface{}) error
 	}
 	Cache interface {
 		Generic
-		WithServiceManager(c ServiceManager) Cache
+		WithSis(c Sis) Cache
 	}
 	Logger interface {
 		Generic
-		WithServiceManager(c ServiceManager) Logger
+		WithSis(c Sis) Logger
 		Info(ctx context.Context, message string, fields ...map[string]interface{})
 		Warn(ctx context.Context, message string, fields ...map[string]interface{})
 		Error(ctx context.Context, message string, fields ...map[string]interface{})
@@ -33,12 +51,12 @@ type (
 	}
 	HttpServer interface {
 		Generic
-		WithServiceManager(c ServiceManager) HttpServer
+		WithSis(c Sis) HttpServer
 		Run() error
 	}
 	Environment interface {
 		Generic
-		WithServiceManager(c ServiceManager) Environment
+		WithSis(c Sis) Environment
 		Environment() string
 		Service() string
 		Version() string
@@ -48,7 +66,7 @@ type (
 	}
 	Handlers interface {
 		Generic
-		WithServiceManager(c ServiceManager) Handlers
+		WithSis(c Sis) Handlers
 		CreateUser(ctx context.Context, u *models.User) error
 		UpdateUser(ctx context.Context, u *models.User) error
 		GetUser(ctx context.Context, u *models.User) error
@@ -56,29 +74,31 @@ type (
 		DeleteUser(ctx context.Context, u *models.User) error
 	}
 
-	ServiceManager interface {
-		WithDatabase(d Database) ServiceManager
+	Sis interface {
+		WithDatabase(d Database) Sis
 		Database() Database
-		WithCache(d Cache) ServiceManager
+		WithCache(d Cache) Sis
 		Cache() Cache
-		WithLogger(d Logger) ServiceManager
+		WithLogger(d Logger) Sis
 		Logger() Logger
-		WithHttpServer(d HttpServer) ServiceManager
+		WithHttpServer(d HttpServer) Sis
 		HttpServer() HttpServer
-		WithHandlers(d Handlers) ServiceManager
+		WithHandlers(d Handlers) Sis
 		Handlers() Handlers
-		WithEnvironment(d Environment) ServiceManager
+		WithEnvironment(d Environment) Sis
 		Environment() Environment
 
 		Context() context.Context
 		Init() error
 		Close() error
+		Health(ctx context.Context) error
 	}
 
-	ServiceManagerImpl struct {
+	sisImpl struct {
 		ctx         context.Context
 		cancel      context.CancelFunc
 		database    Database
+		validator   Validator
 		cache       Cache
 		log         Logger
 		httpServer  HttpServer
@@ -87,18 +107,19 @@ type (
 	}
 )
 
-func New() *ServiceManagerImpl {
-	return &ServiceManagerImpl{
+func New() *sisImpl {
+	return &sisImpl{
 		database:    NewNoopDatabase(),
 		cache:       NewNoopCache(),
 		log:         NewNoopLogger(),
 		httpServer:  NewNoopHttpServer(),
 		handlers:    NewNoopHandlers(),
 		environment: NewNoopEnvironment(),
+		validator:   NewNoopValidator(),
 	}
 }
 
-func (s *ServiceManagerImpl) Init() error {
+func (s *sisImpl) Init() error {
 	s.ctx, s.cancel = context.WithCancel(context.Background())
 	if err := s.Logger().Init(s.ctx); err != nil {
 		return err
@@ -119,7 +140,27 @@ func (s *ServiceManagerImpl) Init() error {
 	return nil
 }
 
-func (s *ServiceManagerImpl) Close() error {
+func (s *sisImpl) Health(ctx context.Context) error {
+	if err := s.Logger().Health(ctx); err != nil {
+		return err
+	}
+	if err := s.Environment().Health(s.ctx); err != nil {
+		return err
+	}
+	if err := s.HttpServer().Health(s.ctx); err != nil {
+		return err
+	}
+	if err := s.Cache().Health(s.ctx); err != nil {
+		return err
+	}
+	if err := s.Database().Health(s.ctx); err != nil {
+		return err
+	}
+	s.Logger().Info(s.ctx, "All services initialized")
+	return nil
+}
+
+func (s *sisImpl) Close() error {
 	var err error
 	if errC := s.cache.Close(); errC != nil {
 		err = errC
@@ -137,59 +178,59 @@ func (s *ServiceManagerImpl) Close() error {
 	return err
 }
 
-func (s *ServiceManagerImpl) Context() context.Context {
+func (s *sisImpl) Context() context.Context {
 	return s.ctx
 }
 
-func (s *ServiceManagerImpl) WithDatabase(d Database) ServiceManager {
-	s.database = d.WithServiceManager(s)
+func (s *sisImpl) WithDatabase(d Database) Sis {
+	s.database = d.WithSis(s)
 	return s
 }
 
-func (s *ServiceManagerImpl) Database() Database {
+func (s *sisImpl) Database() Database {
 	return s.database
 }
 
-func (s *ServiceManagerImpl) WithCache(d Cache) ServiceManager {
-	s.cache = d.WithServiceManager(s)
+func (s *sisImpl) WithCache(d Cache) Sis {
+	s.cache = d.WithSis(s)
 	return s
 }
 
-func (s *ServiceManagerImpl) Cache() Cache {
+func (s *sisImpl) Cache() Cache {
 	return s.cache
 }
 
-func (s *ServiceManagerImpl) WithLogger(d Logger) ServiceManager {
-	s.log = d.WithServiceManager(s)
+func (s *sisImpl) WithLogger(d Logger) Sis {
+	s.log = d.WithSis(s)
 	return s
 }
 
-func (s *ServiceManagerImpl) Logger() Logger {
+func (s *sisImpl) Logger() Logger {
 	return s.log
 }
 
-func (s *ServiceManagerImpl) WithHttpServer(d HttpServer) ServiceManager {
-	s.httpServer = d.WithServiceManager(s)
+func (s *sisImpl) WithHttpServer(d HttpServer) Sis {
+	s.httpServer = d.WithSis(s)
 	return s
 }
 
-func (s *ServiceManagerImpl) HttpServer() HttpServer {
+func (s *sisImpl) HttpServer() HttpServer {
 	return s.httpServer
 }
 
-func (s *ServiceManagerImpl) WithHandlers(d Handlers) ServiceManager {
-	s.handlers = d.WithServiceManager(s)
+func (s *sisImpl) WithHandlers(d Handlers) Sis {
+	s.handlers = d.WithSis(s)
 	return s
 }
 
-func (s *ServiceManagerImpl) Handlers() Handlers {
+func (s *sisImpl) Handlers() Handlers {
 	return s.handlers
 }
-func (s *ServiceManagerImpl) WithEnvironment(d Environment) ServiceManager {
-	s.environment = d.WithServiceManager(s)
+func (s *sisImpl) WithEnvironment(d Environment) Sis {
+	s.environment = d.WithSis(s)
 	return s
 }
 
-func (s *ServiceManagerImpl) Environment() Environment {
+func (s *sisImpl) Environment() Environment {
 	return s.environment
 }

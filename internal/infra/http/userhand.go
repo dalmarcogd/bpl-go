@@ -1,4 +1,4 @@
-package httpserver
+package http
 
 import (
 	"github.com/dalmarcogd/bpl-go/internal/errors"
@@ -16,7 +16,7 @@ func (s *ServiceImpl) handleCreateUser(c echo.Context) error {
 		Name:  uReq.Name,
 		Email: uReq.Email,
 	}
-	err := s.ServiceManager().Handlers().CreateUser(c.Request().Context(), &user)
+	err := s.Sis().Handlers().CreateUser(c.Request().Context(), &user)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
@@ -42,7 +42,7 @@ func (s *ServiceImpl) handleUpdateUser(c echo.Context) error {
 		Name: uReq.Name,
 		Email: uReq.Email,
 	}
-	err := s.ServiceManager().Handlers().UpdateUser(c.Request().Context(), &user)
+	err := s.Sis().Handlers().UpdateUser(c.Request().Context(), &user)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
@@ -62,7 +62,7 @@ func (s *ServiceImpl) handleGetUserById(c echo.Context) error {
 	user := models.User{
 		Id: userId,
 	}
-	err := s.ServiceManager().Handlers().GetUser(c.Request().Context(), &user)
+	err := s.Sis().Handlers().GetUser(c.Request().Context(), &user)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
@@ -76,7 +76,7 @@ func (s *ServiceImpl) handleGetUserById(c echo.Context) error {
 
 func (s *ServiceImpl) handleGetUsers(c echo.Context) error {
 	var users []models.User
-	err := s.ServiceManager().Handlers().GetUsers(c.Request().Context(), &users)
+	err := s.Sis().Handlers().GetUsers(c.Request().Context(), &users)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}
@@ -101,7 +101,7 @@ func (s *ServiceImpl) handleDeleteUser(c echo.Context) error {
 		Id: userId,
 	}
 
-	err := s.ServiceManager().Handlers().DeleteUser(c.Request().Context(), &user)
+	err := s.Sis().Handlers().DeleteUser(c.Request().Context(), &user)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error()).SetInternal(err)
 	}

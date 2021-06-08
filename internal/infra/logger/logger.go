@@ -12,7 +12,7 @@ import (
 type (
 	DefaultFields func(ctx context.Context, fields *map[string]interface{})
 	ServiceImpl   struct {
-		serviceManager services.ServiceManager
+		serviceManager services.Sis
 		ctx            context.Context
 		logger         *logrus.Logger
 		defaultFields  DefaultFields
@@ -46,12 +46,12 @@ func (s *ServiceImpl) Close() error {
 	return nil
 }
 
-func (s *ServiceImpl) WithServiceManager(c services.ServiceManager) services.Logger {
+func (s *ServiceImpl) WithSis(c services.Sis) services.Logger {
 	s.serviceManager = c
 	return s
 }
 
-func (s *ServiceImpl) ServiceManager() services.ServiceManager {
+func (s *ServiceImpl) Sis() services.Sis {
 	return s.serviceManager
 }
 

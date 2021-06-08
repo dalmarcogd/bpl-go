@@ -8,7 +8,7 @@ import (
 
 type (
 	ServiceImpl struct {
-		serviceManager services.ServiceManager
+		serviceManager services.Sis
 		ctx            context.Context
 		client         *redis.Client
 		address        string
@@ -26,7 +26,7 @@ func (s *ServiceImpl) WithAddress(address string) *ServiceImpl {
 
 func (s *ServiceImpl) Init(ctx context.Context) error {
 	s.ctx = ctx
-	s.address = s.ServiceManager().Environment().CacheAddress()
+	s.address = s.Sis().Environment().CacheAddress()
 	c := redis.NewClient(&redis.Options{
 		Addr:     s.address,
 		DB:       0,
@@ -44,11 +44,11 @@ func (s *ServiceImpl) Close() error {
 	return s.client.Close()
 }
 
-func (s *ServiceImpl) WithServiceManager(c services.ServiceManager) services.Cache {
+func (s *ServiceImpl) WithSis(c services.Sis) services.Cache {
 	s.serviceManager = c
 	return s
 }
 
-func (s *ServiceImpl) ServiceManager() services.ServiceManager {
+func (s *ServiceImpl) Sis() services.Sis {
 	return s.serviceManager
 }

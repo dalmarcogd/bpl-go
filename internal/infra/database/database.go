@@ -10,7 +10,7 @@ import (
 
 type (
 	ServiceImpl struct {
-		serviceManager services.ServiceManager
+		serviceManager services.Sis
 		ctx            context.Context
 		client         *gorm.DB
 		dsn            string
@@ -28,7 +28,7 @@ func (s *ServiceImpl) WithDsn(dsn string) *ServiceImpl {
 
 func (s *ServiceImpl) Init(ctx context.Context) error {
 	s.ctx = ctx
-	s.dsn = s.ServiceManager().Environment().DatabaseDsn()
+	s.dsn = s.Sis().Environment().DatabaseDsn()
 	c, err := gorm.Open(postgres.Open(s.dsn), &gorm.Config{
 		PrepareStmt: true,
 	})
@@ -57,12 +57,12 @@ func (s *ServiceImpl) Close() error {
 	return db.Close()
 }
 
-func (s *ServiceImpl) WithServiceManager(c services.ServiceManager) services.Database {
+func (s *ServiceImpl) WithSis(c services.Sis) services.Database {
 	s.serviceManager = c
 	return s
 }
 
-func (s *ServiceImpl) ServiceManager() services.ServiceManager {
+func (s *ServiceImpl) Sis() services.Sis {
 	return s.serviceManager
 }
 

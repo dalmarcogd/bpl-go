@@ -2,12 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/dalmarcogd/bpl-go/internal/cache"
-	"github.com/dalmarcogd/bpl-go/internal/database"
-	"github.com/dalmarcogd/bpl-go/internal/environment"
 	"github.com/dalmarcogd/bpl-go/internal/handlers"
-	"github.com/dalmarcogd/bpl-go/internal/httpserver"
-	"github.com/dalmarcogd/bpl-go/internal/logger"
+	cache2 "github.com/dalmarcogd/bpl-go/internal/infra/cache"
+	database2 "github.com/dalmarcogd/bpl-go/internal/infra/database"
+	environment2 "github.com/dalmarcogd/bpl-go/internal/infra/environment"
+	logger2 "github.com/dalmarcogd/bpl-go/internal/infra/logger"
 	"github.com/dalmarcogd/bpl-go/internal/services"
 	"os"
 	"os/signal"
@@ -16,12 +15,12 @@ import (
 func main() {
 	ss := services.
 		New().
-		WithDatabase(database.New()).
-		WithCache(cache.New()).
-		WithLogger(logger.New()).
-		WithHttpServer(httpserver.New().WithAddress(":8080")).
+		WithDatabase(database2.New()).
+		WithCache(cache2.New()).
+		WithLogger(logger2.New()).
+		WithHttpServer(http.New().WithAddress(":8080")).
 		WithHandlers(handlers.New()).
-		WithEnvironment(environment.New())
+		WithEnvironment(environment2.New())
 
 	if err := ss.Init(); err != nil {
 		ss.Logger().Fatal(ss.Context(), err.Error())

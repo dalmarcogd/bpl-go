@@ -19,7 +19,7 @@ type (
 	}
 
 	ServiceImpl struct {
-		serviceManager services.ServiceManager
+		serviceManager services.Sis
 		ctx            context.Context
 		environment    *environment
 	}
@@ -42,12 +42,12 @@ func (s *ServiceImpl) Close() error {
 	return nil
 }
 
-func (s *ServiceImpl) WithServiceManager(c services.ServiceManager) services.Environment {
+func (s *ServiceImpl) WithSis(c services.Sis) services.Environment {
 	s.serviceManager = c
 	return s
 }
 
-func (s *ServiceImpl) ServiceManager() services.ServiceManager {
+func (s *ServiceImpl) Sis() services.Sis {
 	return s.serviceManager
 }
 
